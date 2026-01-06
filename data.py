@@ -10,6 +10,7 @@ class TestData:
 
 
 class TestOrderData:
+   
     order_data_grey = {
         "firstName": "Александр",
         "lastName": "Корбин",
@@ -63,3 +64,9 @@ class TestOrderData:
         "comment": "Оо,мама мия..жду не дождусь!",
         "color": []
     }
+    params=[
+    order_data_grey,
+    order_data_black, 
+    order_data_two_colors,
+    order_data_no_colors
+]

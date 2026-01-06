@@ -9,9 +9,31 @@ class TestCourierCreate:
 
     @allure.title('Проверка создания аккаунта курьера с валидными данными')
     @allure.description('Happy path. Проверяются код и тело ответа.')
-    def test_create_courier_account(self, new_courier):
-        # Фикстура new_courier уже создала курьера, проверяем что данные вернулись
-        assert 'data' in new_courier and 'id' in new_courier
+    def test_create_courier_account(self):
+        courier_data = {
+            'login': h.create_random_login(),
+            'password': h.create_random_password(),
+            'firstName': h.create_random_firstname()
+        }
+
+        with allure.step('Создание курьера для теста'):
+            create_response = requests.post(Urls.URL_courier_create, data=courier_data)
+            assert create_response.status_code == 201, "Ожидался статус код 201"
+
+        with allure.step('Авторизация курьера для получения id'):
+            login_response = requests.post(Urls.URL_courier_login, data={
+                'login': courier_data['login'],
+                'password': courier_data['password']
+            })
+            courier_id = login_response.json()["id"]
+
+        # Проверка наличия необходимых данных
+        assert courier_id is not None, "ID курьера не получен"
+
+        # Очистка после теста
+        with allure.step(f'Удаление курьера с id {courier_id}'):
+            delete_response = requests.delete(f"{Urls.URL_courier}/{courier_id}")
+            assert delete_response.status_code == 200, "Ошибка при удалении курьера"
 
     @allure.title('Проверка получения ошибки при повторном использовании логина для создания курьера')
     @allure.description('Проверяются код и тело ответа.')

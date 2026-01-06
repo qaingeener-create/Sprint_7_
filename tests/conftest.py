@@ -68,12 +68,8 @@ def courier_and_order(new_courier, new_order):
     }
 
 
-@pytest.fixture(params=[
-    TestOrderData.order_data_grey,
-    TestOrderData.order_data_black, 
-    TestOrderData.order_data_two_colors,
-    TestOrderData.order_data_no_colors
-])
+@pytest.fixture
+
 def order_data(request):
     """Фикстура для параметризации данных заказа"""
     return request.param
