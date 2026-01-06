@@ -2,9 +2,9 @@ import requests
 import allure
 import pytest
 import json
-from data import TestOrderData
-from urls import Urls
-import helpers as h
+from tests.data import TestOrderData
+from tests.urls import Urls
+import tests.helpers as h
 
 
 class TestOrderAccept:

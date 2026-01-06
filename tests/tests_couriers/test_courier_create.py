@@ -1,8 +1,8 @@
 import requests
 import allure
 import pytest
-from urls import Urls
-import helpers as h
+from tests.urls import Urls
+import tests.helpers as h
 
 
 class TestCourierCreate:
