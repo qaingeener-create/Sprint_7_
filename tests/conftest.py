@@ -2,9 +2,9 @@ import pytest
 import requests
 import json
 import allure
-import tests.helpers as h
-from tests.urls import Urls
-from tests.data import TestOrderData
+import helpers as h
+from urls import Urls
+from data import TestOrderData
 
 
 @pytest.fixture
@@ -27,11 +27,13 @@ def new_courier():
         })
         courier_id = login_response.json()["id"]
     
-    return {
+    yield {
         'data': courier_data,
         'id': courier_id
     }
-
+    # Очистка после теста
+    with allure.step(f'Удаление курьера с id {courier_id}'):
+        delete_response = requests.delete(f"{Urls.URL_courier}/{courier_id}")
 
 @pytest.fixture
 def new_order():
@@ -47,10 +49,13 @@ def new_order():
         get_response = requests.get(f"{Urls.URL_orders_get}?t={track_id}")
         order_id = get_response.json()['order']['id']
     
-    return {
+    yield {
         'track_id': track_id,
         'order_id': order_id
     }
+     # Очистка после теста
+    with allure.step(f'Удаление заказа с track_id {track_id}'):
+        delete_response = requests.delete(f"{Urls.URL_orders}/{order_id}")
 
 
 @pytest.fixture
