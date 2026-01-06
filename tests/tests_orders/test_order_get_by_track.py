@@ -1,6 +1,6 @@
 import requests
 import allure
-from tests.urls import Urls
+from urls import Urls
 
 
 class TestOrderGetByTrack:

@@ -1,7 +1,7 @@
 import requests
 import allure
 import json
-from tests.urls import Urls
+from urls import Urls
 
 
 class TestOrderCreate:

@@ -1,7 +1,7 @@
 import requests
 import allure
 import pytest
-from tests.urls import Urls
+from urls import Urls
 
 
 class TestOrdersGetList:

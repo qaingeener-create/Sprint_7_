@@ -2,9 +2,10 @@ import pytest
 import requests
 import json
 import allure
-import helpers as h
-from urls import Urls
 from data import TestOrderData
+from urls import Urls
+import helpers as h
+
 
 
 @pytest.fixture

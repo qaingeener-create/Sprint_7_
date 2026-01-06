@@ -1,9 +1,9 @@
 import requests
 import allure
 import pytest
-from tests.data import TestData as Data
-from tests.urls import Urls
-import tests.helpers as h
+from data import TestData as Data
+from urls import Urls
+import helpers as h
 
 
 class TestCourierLogin:
