@@ -71,3 +71,10 @@ class TestOrderData:
     order_data_two_colors,
     order_data_no_colors
 ]
+   
+    test_data = [
+        {"color": "grey"},
+        {"color": "black"},
+        {"color": ["grey", "black"]},
+        {}
+]
