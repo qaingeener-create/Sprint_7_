@@ -52,25 +52,42 @@ class TestCourierCreate:
         assert response.status_code == 409
         assert response.json()["message"] == "Этот логин уже используется. Попробуйте другой."
 
-    @allure.title('Проверка невозможности создания двух одинаковых курьеров')
-    def test_impossibility_create_two_similar(self):
-        # Создаем уникальные данные для курьера
+    
+    @allure.title('Проверка успешного создания курьера')
+    def test_create_courier_successfully(self):
         payload = {
             'login': h.create_random_login(),
             'password': h.create_random_password(),
             'firstName': h.create_random_firstname()
         }
-        
+
+        with allure.step('Создание курьера (должно быть успешным)'):
+            response = requests.post(Urls.URL_courier_create, data=payload)
+
+        assert response.status_code == 201
+
+    @allure.title('Проверка невозможности создания курьера с уже существующим логином')
+    def test_impossibility_create_courier_with_existing_login(self):
+        payload = {
+            'login': h.create_random_login(),
+            'password': h.create_random_password(),
+            'firstName': h.create_random_firstname()
+        }
+
+        # Сначала создаём курьера
         with allure.step('Первое создание курьера (должно быть успешным)'):
             first_response = requests.post(Urls.URL_courier_create, data=payload)
-        
+            assert first_response.status_code == 201
+
+        # Затем пытаемся создать курьера с тем же логином
         with allure.step('Второе создание курьера с теми же данными (должно вызвать ошибку)'):
             second_response = requests.post(Urls.URL_courier_create, data=payload)
-        
-        # Проверка: первый успешен, второй возвращает ошибку конфликта
-        assert first_response.status_code == 201
+
+        # Проверяем, что получаем ошибку конфликта
         assert second_response.status_code == 409
         assert second_response.json()["message"] == "Этот логин уже используется. Попробуйте другой."
+
+
 
     @allure.title('Проверка получения ошибки при создании курьера с незаполненными обязательными полями')
     @allure.description('В тест по очереди передаются наборы данных с пустым логином или паролем. '
