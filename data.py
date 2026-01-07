@@ -64,7 +64,8 @@ class TestOrderData:
         "comment": "Оо,мама мия..жду не дождусь!",
         "color": []
     }
-    params=[
+
+    param = [
     order_data_grey,
     order_data_black, 
     order_data_two_colors,

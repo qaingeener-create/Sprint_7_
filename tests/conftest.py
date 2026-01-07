@@ -5,7 +5,7 @@ import allure
 from data import TestOrderData
 from urls import Urls
 import helpers as h
-
+import data
 
 
 @pytest.fixture
@@ -34,7 +34,7 @@ def new_courier():
     }
     # Очистка после теста
     with allure.step(f'Удаление курьера с id {courier_id}'):
-        delete_response = requests.delete(f"{Urls.URL_courier}/{courier_id}")
+        delete_response = requests.delete(f"{Urls.URL_courier_create}/{courier_id}")
 
 @pytest.fixture
 def new_order():
@@ -56,7 +56,7 @@ def new_order():
     }
      # Очистка после теста
     with allure.step(f'Удаление заказа с track_id {track_id}'):
-        delete_response = requests.delete(f"{Urls.URL_orders}/{order_id}")
+        delete_response = requests.delete(f"{Urls.URL_orders_get}/{order_id}")
 
 
 @pytest.fixture
@@ -68,8 +68,8 @@ def courier_and_order(new_courier, new_order):
     }
 
 
-@pytest.fixture
+#@pytest.fixture
 
-def order_data(request):
-    """Фикстура для параметризации данных заказа"""
-    return request.param
+#def order_data(request):
+  #  """Фикстура для параметризации данных заказа"""
+   # return request.param

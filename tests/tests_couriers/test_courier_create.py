@@ -32,7 +32,7 @@ class TestCourierCreate:
 
         # Очистка после теста
         with allure.step(f'Удаление курьера с id {courier_id}'):
-            delete_response = requests.delete(f"{Urls.URL_courier}/{courier_id}")
+            delete_response = requests.delete(f"{Urls.URL_courier_create}/{courier_id}")
             assert delete_response.status_code == 200, "Ошибка при удалении курьера"
 
     @allure.title('Проверка получения ошибки при повторном использовании логина для создания курьера')

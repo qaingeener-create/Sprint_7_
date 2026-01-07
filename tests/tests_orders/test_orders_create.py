@@ -2,7 +2,7 @@ import requests
 import allure
 import json
 from urls import Urls
-
+import data
 
 class TestOrderCreate:
 
@@ -10,9 +10,9 @@ class TestOrderCreate:
     @allure.description('Согласно требованиям, система должна позволять указать в заказе один цвет самоката, выбрать '
                         'сразу оба или не указывать совсем. В тест по очереди передаются наборы данных с разными '
                         'параметрами: серый, черный, оба цвета, цвет не указан. Проверяются код и тело ответа.')
-    def test_order_create_color_parametrize_success(self, order_data):
+    def test_order_create_color_parametrize_success(self, new_order):
         # Преобразование данных в JSON-формат для отправки
-        order_data_json = json.dumps(order_data)
+        order_data_json = json.dumps(new_order)
         # Установка заголовков для JSON-запроса
         headers = {'Content-Type': 'application/json'}
         
